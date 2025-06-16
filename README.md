@@ -56,8 +56,8 @@ Welcome to the Pizza API project! This Flask-based RESTful API manages pizza res
 ### 2. Create & Activate Virtual Environment
 
 - python3 -m venv env
- source env/bin/activate 
--
+- source env/bin/activate 
+
 ### 3. Install Dependencies
 
 - pipenv install flask flask_sqlalchemy flask_migrate
