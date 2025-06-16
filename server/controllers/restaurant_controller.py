@@ -12,20 +12,22 @@ def get_restaurants():
 @restaurant_bp.route('/<int:id>', methods=['GET'])
 def get_restaurant(id):
     restaurant = Restaurant.query.get(id)
-    if restaurant:
-        return jsonify({
-            "id": restaurant.id,
-            "name": restaurant.name,
-            "address": restaurant.address,
-            "pizzas": [
-                {
-                    "id": rp.pizza.id,
-                    "name": rp.pizza.name,
-                    "ingredients": rp.pizza.ingredients
-                } for rp in restaurant.restaurant_pizzas
-            ]
-        })
-    return jsonify({"error": "Restaurant not found"}), 404
+    if not restaurant:
+        return jsonify({"error": "Restaurant not found"}), 404
+
+    return jsonify({
+        "id": restaurant.id,
+        "name": restaurant.name,
+        "address": restaurant.address,
+        "pizzas": [
+            {
+                "id": rp.pizza.id,
+                "name": rp.pizza.name,
+                "ingredients": rp.pizza.ingredients
+            }
+            for rp in restaurant.restaurant_pizzas
+        ]
+    }), 200
 
 @restaurant_bp.route('/<int:id>', methods=['DELETE'])
 def delete_restaurant(id):
@@ -34,4 +36,4 @@ def delete_restaurant(id):
         db.session.delete(restaurant)
         db.session.commit()
         return '', 204
-    return jsonify({"error": "Restaurant not found"}), 404
+    return jsonify({"error": "Restaurant not found!"}), 404
