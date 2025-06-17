@@ -65,6 +65,7 @@ Welcome to the Pizza API project! This Flask-based RESTful API manages pizza res
 
 ### 4. Run Migrations
 
+- export FLASK_APP=server/app.py
 - flask db init
 - flask db migrate -m "Initial migration"
 - flask db upgrade
@@ -75,10 +76,12 @@ Welcome to the Pizza API project! This Flask-based RESTful API manages pizza res
 
 ### 6. Run the Server
 
-- flask run 
+
+- flask run --port=5001
+
 
 ### 7. See the result on browser:
-- http://127.0.0.1:5000 and add a valid route eg. /pizzas after the ULR
+- http://127.0.0.1:5001 and add a valid route eg. /pizzas after the ULR
 
 ### API Endpoints
 

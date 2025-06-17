@@ -17,9 +17,17 @@ def create_app():
     from server.models.restaurant import Restaurant
     from server.models.restaurant_pizza import RestaurantPizza
 
+  
     @app.route('/pizzas', methods=['GET'])
     def get_pizzas():
         return jsonify([pizza.to_dict() for pizza in Pizza.query.all()]), 200
+
+    @app.route('/pizzas/<int:id>', methods=['GET'])
+    def get_pizza(id):
+        pizza = Pizza.query.get(id)
+        if pizza:
+            return jsonify(pizza.to_dict()), 200
+        return jsonify({"error": "Pizza not found"}), 404
 
     @app.route('/pizzas', methods=['POST'])
     def create_pizza():
@@ -41,9 +49,17 @@ def create_app():
             return jsonify({"message": "Pizza deleted"}), 200
         return jsonify({"error": "Pizza not found"}), 404
 
+
     @app.route('/restaurants', methods=['GET'])
     def get_restaurants():
         return jsonify([restaurant.to_dict() for restaurant in Restaurant.query.all()]), 200
+
+    @app.route('/restaurants/<int:id>', methods=['GET'])
+    def get_restaurant(id):
+        restaurant = Restaurant.query.get(id)
+        if restaurant:
+            return jsonify(restaurant.to_dict()), 200
+        return jsonify({"error": "Restaurant not found"}), 404
 
     @app.route('/restaurants', methods=['POST'])
     def create_restaurant():
@@ -65,6 +81,7 @@ def create_app():
             return jsonify({"message": "Restaurant deleted"}), 200
         return jsonify({"error": "Restaurant not found"}), 404
 
+   
     @app.route('/restaurant_pizzas', methods=['GET'])
     def get_restaurant_pizzas():
         return jsonify([rp.to_dict() for rp in RestaurantPizza.query.all()]), 200
